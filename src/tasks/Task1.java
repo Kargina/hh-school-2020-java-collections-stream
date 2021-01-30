@@ -4,10 +4,9 @@ import common.Person;
 import common.PersonService;
 import common.Task;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /*
 Задача 1
@@ -21,7 +20,15 @@ public class Task1 implements Task {
   // !!! Редактируйте этот метод !!!
   private List<Person> findOrderedPersons(List<Integer> personIds) {
     Set<Person> persons = PersonService.findPersons(personIds);
-    return Collections.emptyList();
+    ArrayList<Person> orderedPersons = new ArrayList<>();
+    for (int id: personIds) {
+      for (Person person: persons) {
+        if (person.getId() == id) {
+          orderedPersons.add(person);
+        }
+      }
+    }
+    return orderedPersons;
   }
 
   @Override
