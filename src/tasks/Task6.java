@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /*
 Имеются
@@ -20,10 +21,30 @@ import java.util.Set;
  */
 public class Task6 implements Task {
 
+  //Получился сложночитаемый код, но он работает
+  //Со стримами не получилось это задание
   private Set<String> getPersonDescriptions(Collection<Person> persons,
                                             Map<Integer, Set<Integer>> personAreaIds,
                                             Collection<Area> areas) {
-    return new HashSet<>();
+
+    HashSet<String> set = new HashSet<>();
+
+    for (Person p: persons) {
+      for (Map.Entry<Integer, Set<Integer>> entry : personAreaIds.entrySet()) {
+        if (entry.getKey().equals(p.getId())) {
+
+          for (Integer areaId: entry.getValue()) {
+            for (Area area: areas) {
+              if (areaId.equals(area.getId())) {
+                set.add(p.getFirstName() + " - " + area.getName());
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return set;
   }
 
   @Override
